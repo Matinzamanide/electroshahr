@@ -24,7 +24,6 @@ const Brands = () => {
   return (
     <section className="w-full py-16 bg-indigo-50">
       
-      {/* عنوان بخش - استفاده از رنگ آبی تیره و نارنجی */}
       <div className="text-center mb-12 max-w-4xl mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-extrabold text-blue-900 mb-2 flex items-center justify-center gap-2">
             <Award size={30} className="text-orange-500"/>
@@ -35,7 +34,6 @@ const Brands = () => {
         </p>
       </div>
 
-      {/* شبکه برندها - با افکت‌های رنگی برند */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-7xl mx-auto px-4">
         {data.map((item, i) => (
           <Link
@@ -48,7 +46,6 @@ const Brands = () => {
             onMouseEnter={() => setLoaded(true)}
             aria-label={`مشاهده محصولات برند ${item.brand}`}
           >
-            {/* لوگو */}
             <div className="relative w-20 h-20 md:w-24 md:h-24 mb-3 flex items-center justify-center">
               <Image
                 src={item.src}
@@ -60,12 +57,10 @@ const Brands = () => {
               />
             </div>
 
-            {/* نام برند - برجسته با رنگ آبی در حالت عادی، نارنجی در هاور */}
             <h3 className="font-bold text-blue-800 text-center text-base md:text-lg group-hover:text-orange-600 transition-colors duration-300">
               {item.brand}
             </h3>
             
-            {/* دکمه کوچک مشاهده - تأکید بر تعامل */}
             <span className='text-xs text-gray-400 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1'>
                 مشاهده محصولات <ArrowLeft size={14} />
             </span>
@@ -73,7 +68,6 @@ const Brands = () => {
         ))}
       </div>
 
-      {/* خط زیرین با گرادیان آبی-نارنجی */}
       <div className="mt-12 flex justify-center">
         <div className="w-40 h-1 bg-linear-to-r from-blue-700 via-blue-500 to-orange-500 rounded-full shadow-lg"></div>
       </div>

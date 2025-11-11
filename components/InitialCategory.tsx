@@ -18,11 +18,11 @@ const InitialCategory = () => {
     },
     {
       name: 'گجت و دکوری',
-      src: '/gadjet.png',
+      src: '/Gadjet.png',
       // مدرن و رنگارنگ: نارنجی + فوشیا
       gradient: 'from-orange-500 to-fuchsia-600',
       hoverGradient: 'hover:from-orange-600 hover:to-fuchsia-700',
-      link: '/gadjets',
+      link: '/Gadjets',
     },
     {
       name: 'آیفون تصویری',
