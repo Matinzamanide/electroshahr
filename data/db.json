@@ -1,0 +1,28 @@
+{
+    "products":[
+        {
+            "id":1,
+            "title":"چراغ خواب سیلیکونی مدل اسب شاخدار",
+            "price":250000,
+            "before_discount_price":500000,
+            "inventory":20,
+            "brand":"HajMatin",
+            "description":"",
+            "images":["https://zamanigallerry.ir/uploads/products/672746.jpg?m=thumb&w=640&h=640&q=high"],
+            "categories":["گجت و دکوری"],
+            "features":["شارژی","جنس سیلیکون مقاوم"]
+        },
+        {
+            "id":2,
+            "title":"مانیتور تصویری تابا مدل TVD-5-70",
+            "price":5358000,
+            "before_discount_price":5641000,
+            "inventory":5,
+            "brand":"Taba",
+            "description":"آیفون تصویری تابا TVD-5-70  از تولیدات شرکت تابا الکترونیک است. این آیفون تصویری با صفحه نمایشگر 7 اینچی بدون قابلیت حافظه داخلی طراحی و عرضه شده است. این شرکت با در نظر داشتن کیفیت در راس کار خود و قرار دادن الگوی خلاقیت در طراحی محصولات، نمونه هایی زیبا از انواع درب باز کن تصویری روانه بازار کرده است که هر کدام دارای قابلیت های کاربری در خور توجهی هستند.",
+            "images":["https://apika.ir/electroshahr/images/taba570.png"],
+            "categories":["آیفون"],
+            "features":["ذخیره عکس","ذخیره فیلم","IP65"]
+        }
+    ]
+}

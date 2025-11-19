@@ -14,7 +14,7 @@ const InitialCategory = () => {
       // طبیعت: سبز جنگلی + خاکی
       gradient: 'from-emerald-600 to-amber-700',
       hoverGradient: 'hover:from-emerald-700 hover:to-amber-800',
-      link: '/camping',
+      link: '/lavazem-camping',
     },
     {
       name: 'گجت و دکوری',
@@ -22,7 +22,7 @@ const InitialCategory = () => {
       // مدرن و رنگارنگ: نارنجی + فوشیا
       gradient: 'from-orange-500 to-fuchsia-600',
       hoverGradient: 'hover:from-orange-600 hover:to-fuchsia-700',
-      link: '/Gadjets',
+      link: '/gadget-decori',
     },
     {
       name: 'آیفون تصویری',
@@ -30,7 +30,7 @@ const InitialCategory = () => {
       // فناوری و امنیت: آبی فولادی + خاکستری
       gradient: 'from-sky-600 to-slate-700',
       hoverGradient: 'hover:from-sky-700 hover:to-slate-800',
-      link: '/video-door-bell',
+      link: '/iphone',
     },
     {
       name: 'تجهیزات خورشیدی',
@@ -38,7 +38,7 @@ const InitialCategory = () => {
       // انرژی خورشیدی: زرد + نارنجی
       gradient: 'from-yellow-400 to-orange-500',
       hoverGradient: 'hover:from-yellow-500 hover:to-orange-600',
-      link: '/solar-equipment',
+      link: '/tajhizat-khorshidi',
     },
   ];
 

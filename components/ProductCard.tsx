@@ -1,27 +1,12 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { ShoppingCart, Eye } from 'lucide-react';
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { ShoppingCart, Eye } from "lucide-react";
+import { IProduct } from "@/types/types";
 
-interface ProductCardProps {
-  id: string;
-  name: string;
-  imageUrl: string;
-  currentPrice: number;
-  oldPrice?: number;
-  href?: string;
-}
-
-export default function ProductCard({
-  id,
-  name,
-  imageUrl,
-  currentPrice,
-  oldPrice,
-  href = '#',
-}: ProductCardProps) {
+const ProductCard :React.FC<IProduct> = ({id,before_discount_price,brand,categories,description,features,images,inventory,price,title}) => {
   return (
     <article
       aria-labelledby={`product-${id}-title`}
@@ -33,68 +18,70 @@ export default function ProductCard({
       "
     >
       {/* Image */}
-      <Link href={href} className="block relative w-full h-56 sm:h-64">
+      <Link href={`/product/${id}/${title}`} className="block relative w-full h-56 sm:h-72">
         <Image
-          src={imageUrl}
-          alt={name}
+          src={images[0]}
+          alt={title}
           fill
-          sizes='(max-width: 640px) 100vw, 33vw'
-          className='object-cover transition-transform duration-500 hover:scale-105'
+          sizes="(max-width: 640px) 100vw, 33vw"
+          className="aspect-square object-cover transition-transform duration-500 hover:scale-105"
         />
         {/* Gradient overlay (برای خوانایی بهتر متن) */}
-        <div className='absolute inset-0 bg-linear-to-t from-black/60 via-black/30 to-transparent' />
+        <div className="absolute inset-0 bg-linear-to-t from-black/30 via-black/10 to-transparent" />
       </Link>
 
       {/* محتوا */}
-      <div className='relative p-5 text-slate-100 z-10'>
+      <div className="relative p-5 text-slate-100 z-10">
         <h3
           id={`product-${id}-title`}
-          className='text-base h-12  font-semibold mb-2 drop-shadow-md text-white'
+          className="text-base h-12  font-semibold mb-2 drop-shadow-md text-white"
         >
-          <Link href={href} className='hover:underline text-blue-900'>
-            {name}
+          <Link href={`/product/${id}/${title}`} className="hover:underline text-blue-900">
+            {title}
           </Link>
         </h3>
 
-        <div className='flex items-baseline justify-between'>
-          <span className='text-lg font-bold text-orange-500 drop-shadow'>
-            {currentPrice.toLocaleString()} تومان
+        <div className="flex items-baseline justify-between">
+          <span className="text-lg font-bold text-orange-500 drop-shadow">
+            {Number(price).toLocaleString()} تومان
           </span>
-          {oldPrice && (
-            <span className='text-sm text-blue-600 line-through'>
-              {oldPrice.toLocaleString()}
+          {before_discount_price && (
+            <span className="text-sm text-blue-600 line-through">
+              {Number(before_discount_price).toLocaleString()}
             </span>
           )}
         </div>
 
-        <div className='mt-5 flex gap-3'>
+        <div className="mt-5 flex gap-3">
           <Link
-            href={href}
-            className='
+            href={``}
+            className="
               flex-1 flex items-center justify-center gap-2
               rounded-xl py-2 px-3 text-sm font-medium
               bg-linear-to-r from-orange-400 to-blue-500
               text-white shadow hover:brightness-95
               transition-all duration-200
-            '
-            aria-label={`مشاهده ${name}`}
+            "
+            aria-label={`مشاهده ${title}`}
           >
-            <Eye className='w-4 h-4' />
+            <Eye className="w-4 h-4" />
             مشاهده
           </Link>
 
           <button
-            type='button'
-            className='
+            type="button"
+            className="
               flex items-center justify-center gap-2
-              rounded-xl py-2 px-3 text-sm font-semibold
-              border border-white/40 text-blue-900
-              bg-orange-400 hover:bg-blue-600 hover:text-orange-400 cursor-pointer
-              transition-all duration-200 backdrop-blur-sm
-            '
-            aria-label={`افزودن ${name} به سبد خرید`}
+              rounded-xl py-2.5 px-4 text-sm font-semibold
+              bg-linear-to-r from-blue-600/90 to-blue-700/90
+              text-orange-200 border border-blue-500/40
+              hover:from-blue-500 hover:to-blue-600 hover:text-white
+              transition-all duration-300 transform hover:scale-[1.02]
+              shadow-lg hover:shadow-blue-900/20
+            "
+            aria-label={`افزودن ${title} به سبد خرید`}
           >
-            <ShoppingCart className='w-4 h-4' />
+            <ShoppingCart className="w-4 h-4" />
             سبد
           </button>
         </div>
@@ -105,7 +92,9 @@ export default function ProductCard({
       </div>
 
       {/* Glow background effect */}
-      <div className='absolute inset-0 pointer-events-none bg-linear-to-br from-orange-400/10 via-transparent to-blue-500/10 blur-2xl' />
+      <div className="absolute inset-0 pointer-events-none bg-linear-to-br from-orange-400/10 via-transparent to-blue-500/10 blur-2xl" />
     </article>
   );
-}
+};
+
+export default ProductCard;
