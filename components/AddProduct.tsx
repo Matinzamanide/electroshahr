@@ -68,7 +68,7 @@ export default function AddProduct() {
     e.preventDefault();
     setMessage(null);
     try {
-      const res = await fetch("http://localhost/electroshahr/insertProducts.php", {
+      const res = await fetch("https://apika.ir/electroshahr/insertProducts.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
