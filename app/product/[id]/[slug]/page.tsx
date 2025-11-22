@@ -311,7 +311,7 @@ export default function ProductClient({
 
         {/* ستون راست: اطلاعات محصول و اکشن‌ها */}
         <div className="flex flex-col gap-6">
-          <h1 className="text-4xl font-extrabold text-blue-900 leading-snug">
+          <h1 className="lg:text-4xl text-lg font-extrabold text-blue-900 leading-snug">
             {product.title}
           </h1>
 
@@ -341,7 +341,7 @@ export default function ProductClient({
               {Number(product.before_discount_price).toLocaleString()} تومان
             </p>
             <div className="flex items-baseline gap-3">
-              <span className="text-4xl font-extrabold text-orange-600 font-sans">
+              <span className="text-lg lg:text-4xl font-extrabold text-orange-600 font-sans">
                 {Number(product.price).toLocaleString()} تومان
               </span>
               {discountPercentage > 0 && (
@@ -422,7 +422,7 @@ export default function ProductClient({
       <div className="mt-10 p-5 bg-orange-50 border-r-4 border-orange-600 rounded-xl flex items-center justify-between shadow-md">
         <div className="flex items-center gap-4">
           <Lightbulb size={32} className="text-orange-600 shrink-0" />
-          <p className="text-lg font-medium text-gray-800">
+          <p className="lg:text-lg font-medium text-gray-800">
             سؤالات متداول در مورد این محصول؟{" "}
             <span className="font-bold text-blue-900">با ما تماس بگیرید.</span>
           </p>

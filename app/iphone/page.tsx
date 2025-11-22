@@ -16,8 +16,8 @@ const VideoIntercom = async () => {
            انواع آیفون صوتی و تصویری
         </span>
       </h2>{" "}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 mt-20">
-        {data.map((item) => {
+      <div className="grid md:grid-cols-2 gap-7 lg:grid-cols-4 mt-20">
+        {filteredProducts.map((item) => {
           return <ProductCard key={item.id} {...item} />;
         })}
       </div>
