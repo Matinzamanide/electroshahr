@@ -59,9 +59,10 @@ import { IProduct } from "@/types/types";
 
 const Gadjet = async () => {
   const res = await fetch(
-  "https://apika.ir/electroshahr/getProducts.php",
-  { cache: "no-store" }
-);
+    "https://apika.ir/electroshahr/getProducts.php",
+    { next: { revalidate: 30 } }
+  );
+  
 
   const data = (await res.json()) as IProduct[];
   console.log(data);
