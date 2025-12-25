@@ -39,6 +39,8 @@ const Brands = () => {
           <Link
           href={item.link || '#'}
             key={i}
+            target='_blank'
+
             className="group flex flex-col items-center justify-center p-4 bg-white/90 backdrop-blur-sm 
                 rounded-2xl border-2 border-transparent shadow-lg 
                 hover:border-blue-300 hover:shadow-2xl hover:shadow-blue-100/70 

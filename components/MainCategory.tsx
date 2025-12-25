@@ -30,25 +30,25 @@ const MainCategory = () => {
   const categories = [
     {
       title: 'آویز و لوستر',
-      href: '/HouseholdPump',
+      href: '/aviz-looster',
       src: '/Aviz1.png',
       icon: iconMapping['آویز و لوستر'],
     },
     {
       title: 'پروژکتور',
-      href: '/product-category/mechanical-seal/',
+      href: '/projector',
       src: '/projector.png',
       icon: iconMapping['پروژکتور'],
     },
     {
       title: 'اینورتر',
-      href: '/ExpansionSource',
+      href: '/inverter',
       src: '/invert.png',
       icon: iconMapping['اینورتر'],
     },
     {
       title: 'سیم و کابل',
-      href: '/Cooler',
+      href: '/sim-cable',
       src: '/cable.png',
       icon: iconMapping['سیم و کابل'],
     },

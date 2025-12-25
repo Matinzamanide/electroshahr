@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Layout from "@/components/Layout";
+import ShoppingCartContextProvider from "@/context/ShoppingCartContext";
 
 
 
@@ -18,9 +19,11 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl">
       <body>
+        <ShoppingCartContextProvider>
         <Layout>
         {children}
         </Layout>
+        </ShoppingCartContextProvider>
       </body>
     </html>
   );

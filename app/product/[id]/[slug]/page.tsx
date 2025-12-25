@@ -129,7 +129,8 @@ import {
   X,
   Lightbulb,
 } from "lucide-react";
-import { features } from "process";
+import { useShoppingCartContext } from "@/context/ShoppingCartContext";
+import AddCart from "@/components/add-cart";
 
 interface Product {
   id: string;
@@ -193,6 +194,7 @@ export default function ProductClient({
         setIsLoading(false);
       });
   }, [id, slug]);
+  const {cartItems}=useShoppingCartContext()
 
   // ------------------- مدیریت وضعیت‌های Loading و Error -------------------
   if (isLoading) {
@@ -373,18 +375,8 @@ export default function ProductClient({
 
           {/* دکمه‌های اکشن */}
           <div className="flex gap-4 mt-4">
-          <button
-              disabled={!isAvailable}
-              className={`flex-1 flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-white font-bold transition-all duration-300 shadow-md
-              ${
-                isAvailable
-                  ? "bg-linear-to-r from-blue-600 to-orange-500 hover:from-blue-700 hover:to-orange-600"
-                  : "bg-gray-400 cursor-not-allowed"
-              }`}
-            >
-              <ShoppingCart size={20} />
-              {isAvailable ? "افزودن به سبد خرید" : "اطلاع از موجودی"}
-            </button>
+           
+          <AddCart isAvailable={isAvailable} id={Number(id)} />
           
           </div>
         </div>

@@ -2,12 +2,12 @@ export interface IProduct {
     id: number
     title: string
     url?:string
-    price: number
+    price: number |undefined
     before_discount_price: number
     inventory: number
     brand: string
     description: string
-    images: string[]
+    images: string[] 
     categories: string[]
     features: string[]
   }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useShoppingCartContext } from "@/context/ShoppingCartContext";
 import {
   Home,
   Menu,
@@ -13,7 +14,6 @@ import {
   Hammer,
   Box,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 
@@ -71,6 +71,7 @@ const Navbar = () => {
   const megaMenuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  const {cartTotalQty}=useShoppingCartContext();
 
   useEffect(() => {
     if (isOpen) document.body.style.overflow = "hidden";
@@ -259,8 +260,13 @@ const Navbar = () => {
 
           <Link
             href="/cart"
-            className="flex items-center gap-2 px-5 py-2.5 text-orange-600 rounded-xl font-medium transition-all hover:bg-orange-50 hover:text-orange-700 group"
+            className="flex items-center gap-2 px-5 py-2.5 text-orange-600 relative rounded-xl font-medium transition-all hover:bg-orange-50 hover:text-orange-700 group"
           >
+            {
+              cartTotalQty>0 &&(
+                <span className="bg-orange-100 p-1 absolute top-0 right-1 rounded-[50%]">{cartTotalQty}</span>
+              )
+            }
             <ShoppingCart
               size={18}
               className="group-hover:scale-110 transition-transform"
