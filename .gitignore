@@ -2,6 +2,9 @@
 
 # dependencies
 /node_modules
+/app/admin
+/app/edit
+/app/login
 /.pnp
 .pnp.*
 .yarn/*

@@ -18,12 +18,12 @@ import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 
 const categoryIcons = {
-  1: Zap, // لوازم خانگی
-  2: Settings, // تجهیزات صنعتی
-  3: Lightbulb, // چراغ‌ها
-  4: Cable, // کابل
-  5: Box, // تابلو برق
-  6: Hammer, // ابزار برقی
+  1: Zap, 
+  2: Settings, 
+  3: Lightbulb, 
+  4: Cable, 
+  5: Box, 
+  6: Hammer, 
 };
 
 const productCategories = [
@@ -98,7 +98,6 @@ const Navbar = () => {
 
   return (
     <div className="relative">
-      {/* Mobile Sidebar */}
       <div
         className={`fixed z-50 h-screen transition-all duration-300 ease-in-out 
           bg-linear-to-br from-blue-700/80 to-blue-500/80 backdrop-blur-md
@@ -157,7 +156,6 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/* Overlay */}
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
@@ -165,7 +163,6 @@ const Navbar = () => {
         />
       )}
 
-      {/* Main Navbar */}
       <div className="flex justify-between items-center shadow-sm px-4  md:px-6 py-5 bg-white/90 backdrop-blur-sm sticky top-0 z-30 border-b border-gray-100">
         <div className="">
           <h3 className="text-3xl font-extrabold text-blue-900 hover:text-orange-600">
@@ -185,7 +182,6 @@ const Navbar = () => {
             خانه
           </Link>
 
-          {/* 🔥 Mega Menu خفن */}
           <div
             className="relative"
             onMouseEnter={() => setIsMegaMenuOpen(true)}
@@ -203,7 +199,6 @@ const Navbar = () => {
 
             {isMegaMenuOpen && (
               <div className="absolute top-9 left-0 mt-2 w-[600px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 z-50 opacity-0 animate-fade-in-up">
-                {/* هدر با آیکون */}
                 <div className="flex items-center gap-2 mb-6 pb-3 border-b border-gray-200">
                   <Zap className="text-blue-700" size={22} />
                   <h3 className="text-xl font-bold text-gray-900">
@@ -211,7 +206,6 @@ const Navbar = () => {
                   </h3>
                 </div>
 
-                {/* گرید 2 ستونه با توضیحات */}
                 <div className="grid grid-cols-2 gap-4">
                   {productCategories.map((cat) => {
                     const Icon =
@@ -244,7 +238,6 @@ const Navbar = () => {
                   })}
                 </div>
 
-                {/* دکمه اصلی با جلوه ویژه */}
                 <div className="mt-6 pt-4 border-t border-gray-100 text-center">
                   <Link
                     href="/products"

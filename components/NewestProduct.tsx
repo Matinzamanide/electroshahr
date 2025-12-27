@@ -1,215 +1,174 @@
-'use client';
+"use client";
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { GitPullRequest, Loader2, ChevronLeft, Zap } from 'lucide-react';
-
-// Swiper core
+import { GitPullRequest, ChevronLeft, Zap, ShoppingCart, Eye } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation } from 'swiper/modules'; 
-
-// Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import Image from 'next/image';
 
-// ----------------------------------------------------------------
-// فرض بر این است که این interface از فایل '@/types/types' می‌آید
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
 interface IProduct {
     id: string;
     title: string;
     slug: string;
     price: number;
-    images: string; // فرض بر این است که برای نمایش در کارت، این فیلد وجود دارد
-    // ... سایر فیلدها
+    images: string[]; 
 }
-// ----------------------------------------------------------------
 
-// ----------------------------------------------------------------
-// کامپوننت ProductCard (نسخه ساده برای مثال)
 const ProductCard: React.FC<IProduct> = ({ title, price, images, slug, id }) => (
-    <Link href={`/product/${id}/${slug}`} className="block">
-        <div className="p-4 flex flex-col items-center">
-            {/* Image Placeholder */}
-            <div className="relative w-full aspect-4/3 mb-3 rounded-xl overflow-hidden bg-gray-100 hover:scale-[1.03] transition-transform duration-500">
-                <Image src={images[0]} width={100} height={100} alt={title} className="object-contain w-full h-full" />
-                <span className="absolute top-2 right-2 bg-orange-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">جدید</span>
+    <div className="group relative bg-white rounded-[2.5rem] p-4 transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-slate-50">
+        <div className="relative w-full aspect-square mb-5 rounded-4xl overflow-hidden bg-[#f8f9fa] flex items-center justify-center group">
+            <Image 
+                src={images[0]} 
+                width={200} 
+                height={200} 
+                alt={title} 
+                className="object-contain w-3/4 h-3/4 transition-transform duration-700 group-hover:scale-110" 
+            />
+            
+            <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                <Link href={`/product/${id}/${slug}`} className="p-3 bg-white rounded-full text-blue-600 shadow-xl hover:bg-blue-600 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300">
+                    <Eye size={20} />
+                </Link>
             </div>
-            {/* Content */}
-            <h3 className="text-base font-semibold text-blue-900 text-center truncate w-full mb-1">{title}</h3>
-            <p className="text-xl font-bold text-orange-600 font-sans">{Number(price).toLocaleString()} ت</p>
+
+            <span className="absolute top-4 right-4 bg-white/80 backdrop-blur-md text-blue-600 text-[10px] font-black px-3 py-1 rounded-full shadow-sm border border-white/50 tracking-widest uppercase">
+                NEW
+            </span>
         </div>
-    </Link>
-);
-// ----------------------------------------------------------------
 
-// ----------------------------------------------------------------
-// کامپوننت SectionHeader (برای سادگی در اینجا تعریف می‌شود)
-interface SectionHeaderProps {
-    title: string;
-    icon: React.ReactNode; 
-    linkHref: string;
-}
-
-const SectionHeader: React.FC<SectionHeaderProps> = ({ title, icon, linkHref }) => {
-    return (
-        <div className="w-[95%] mx-auto py-4">
-            <div className="flex items-center justify-between border-b-2 border-dashed border-blue-100 pb-2">
-                <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-full bg-linear-to-br from-blue-600 to-orange-500 text-white shadow-lg shadow-blue-500/40 transform hover:scale-105 transition-transform duration-300">
-                        {icon}
+        <div className="px-2 space-y-2">
+            <h3 className="text-sm md:text-base font-bold text-slate-800 line-clamp-1 group-hover:text-blue-600 transition-colors">
+                {title}
+            </h3>
+            
+            <div className="flex items-center justify-between pt-2">
+                <div className="flex flex-col">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Price</span>
+                    <div className="flex items-baseline gap-1">
+                        <span className="text-xl font-black text-slate-900 font-sans tracking-tighter">
+                            {Number(price).toLocaleString()}
+                        </span>
+                        <span className="text-[10px] font-bold text-slate-500">تومان</span>
                     </div>
-                    <h2 className="text-3xl font-extrabold text-blue-900 relative">
-                        {title}
-                        <span className="absolute -bottom-2.5 right-0 h-1 w-1/3 bg-orange-500 rounded-full"></span>
-                    </h2>
                 </div>
-                <Link 
-                    href={linkHref}
-                    className="flex items-center gap-1 text-lg font-bold text-orange-600 hover:text-blue-700 transition-colors duration-300 group"
-                >
-                    مشاهده همه
-                    <ChevronLeft 
-                        size={20} 
-                        className="transform group-hover:translate-x-1 transition-transform duration-300"
-                    />
+                
+                <Link href={`/product/${id}/${slug}`} className="p-3 bg-slate-900 text-white rounded-2xl hover:bg-blue-600 transition-all shadow-lg shadow-slate-200">
+                    <ShoppingCart size={18} />
                 </Link>
             </div>
         </div>
-    );
-};
-// ----------------------------------------------------------------
+    </div>
+);
 
+const SectionHeader: React.FC<{ title: string; linkHref: string }> = ({ title, linkHref }) => (
+    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 px-4">
+        <div className="space-y-2">
+            <div className="flex items-center gap-2 text-blue-600 font-black text-xs uppercase tracking-[0.3em]">
+                <div className="w-8 h-0.5 bg-blue-600"></div>
+                Explore New
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter italic">
+                {title}
+            </h2>
+        </div>
+        <Link 
+            href={linkHref}
+            className="group flex items-center gap-3 text-sm font-black text-slate-400 hover:text-blue-600 transition-all uppercase tracking-widest"
+        >
+            View All Collections
+            <div className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center group-hover:border-blue-600 group-hover:bg-blue-50 transition-all">
+                <ChevronLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+            </div>
+        </Link>
+    </div>
+);
 
 const NewestProduct = () => {
     const [data, setData] = useState<IProduct[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
 
     useEffect(() => {
         axios('https://apika.ir/electroshahr/getProducts.php')
             .then((res) => {
-                if (Array.isArray(res.data)) {
-                    // فقط 8 محصول اول را می‌گیریم
-                    setData(res.data.slice(0, 8));
-                    console.log(res.data)
-                } else {
-                    console.error('API response is not an array:', res.data);
-                    setError(true);
-                }
+                if (Array.isArray(res.data)) setData(res.data.slice(0, 8));
             })
-            .catch((err) => {
-                console.error('Error fetching products:', err);
-                setError(true);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+            .finally(() => setLoading(false));
     }, []);
 
-    const renderContent = () => {
-        if (loading) {
-            // Skeleton Loader
-            return (
-                <div className="flex gap-5 overflow-x-hidden p-2">
-                    {[...Array(4)].map((_, i) => (
-                        <div key={i} className="shrink-0 w-60 bg-gray-200 rounded-3xl h-80 animate-pulse"></div>
-                    ))}
-                </div>
-            );
-        }
-
-        if (error || data.length === 0) {
-            return (
-                <div className="text-center p-10 text-red-600 bg-red-50 rounded-xl max-w-lg mx-auto">
-                    <Zap size={30} className="mx-auto mb-3" />
-                    <p>متأسفانه در حال حاضر محصول جدیدی برای نمایش وجود ندارد یا خطایی رخ داده است.</p>
-                </div>
-            );
-        }
-        
-        // Swiper Slider
-        return (
-            <Swiper
-                modules={[Autoplay, Navigation]}
-                autoplay={{ delay: 3000, disableOnInteraction: false }}
-                loop
-                speed={600}
-                navigation
-                breakpoints={{
-                    0: { slidesPerView: 1.2, spaceBetween: 12 },
-                    640: { slidesPerView: 2.5, spaceBetween: 16 },
-                    768: { slidesPerView: 3, spaceBetween: 16 },
-                    1024: { slidesPerView: 4, spaceBetween: 20 },
-                }}
-                className="pb-8"
-            >
-                {data.map((item, i) => (
-                    <SwiperSlide key={i}>
-                        <div className="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-100">
-                            <ProductCard {...item} />
-                        </div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        );
-    };
-
     return (
-        <div className="py-12 bg-indigo-50">
-            
-            {/* استفاده از SectionHeader خفن */}
-            <SectionHeader 
-                title="جدیدترین محصولات" 
-                icon={<GitPullRequest size={20} />} 
-                linkHref="/new-arrivals" 
-            />
+        <section className="py-24 bg-[#fcfcfd] overflow-hidden">
+            <div className="max-w-7xl mx-auto px-4 lg:px-8">
+                <SectionHeader title="جدیدترین‌های الکتروشهر" linkHref="/new-arrivals" />
 
-            <div className="w-[95%] mx-auto mt-6 relative">
-                {renderContent()}
+                <div className="relative group/slider">
+                    {loading ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {[...Array(4)].map((_, i) => (
+                                <div key={i} className="aspect-4/5 bg-slate-100 rounded-[2.5rem] animate-pulse"></div>
+                            ))}
+                        </div>
+                    ) : (
+                        <Swiper
+                            modules={[Autoplay, Navigation, Pagination]}
+                            autoplay={{ delay: 4000, disableOnInteraction: false }}
+                            slidesPerView={1}
+                            spaceBetween={24}
+                            loop={true}
+                            pagination={{ clickable: true, el: '.custom-pagination' }}
+                            navigation={{
+                                nextEl: '.swiper-next',
+                                prevEl: '.swiper-prev',
+                            }}
+                            breakpoints={{
+                                640: { slidesPerView: 2 },
+                                1024: { slidesPerView: 3 },
+                                1280: { slidesPerView: 4 },
+                            }}
+                            className="pb-14! overflow-visible!"
+                        >
+                            {data.map((item) => (
+                                <SwiperSlide key={item.id}>
+                                    <ProductCard {...item} />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    )}
 
-                {/* استایل‌های جهانی برای دکمه‌های ناوبری Swiper */}
-                <style jsx global>{`
-                    .swiper-button-prev,
-                    .swiper-button-next {
-                        background: white;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 9999px;
-                        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
-                        color: #2563eb; /* آبی تیره */
-                        opacity: 0.95;
-                        transition: all 0.3s ease;
-                        font-size: 16px !important; /* کنترل اندازه آیکون */
-                        z-index: 10;
-                    }
-                    .swiper-button-prev:hover,
-                    .swiper-button-next:hover {
-                        transform: scale(1.1);
-                        color: #f97316; /* نارنجی تیره در هاور */
-                        opacity: 1;
-                    }
-                    .swiper-button-prev {
-                        left: -20px;
-                    }
-                    .swiper-button-next {
-                        right: -20px;
-                    }
-                    @media (max-width: 640px) {
-                        .swiper-button-prev,
-                        .swiper-button-next {
-                            display: none;
-                        }
-                    }
-                    .swiper-button-prev::after,
-                    .swiper-button-next::after {
-                        font-size: 16px !important; /* افزایش اندازه آیکون */
-                        font-weight: bold;
-                    }
-                `}</style>
+                    <button className="swiper-prev absolute top-1/2 -left-6 md:-left-12 z-20 w-14 h-14 bg-white rounded-full shadow-2xl items-center justify-center text-slate-800 opacity-0 group-hover/slider:opacity-100 transition-all hover:bg-blue-600 hover:text-white -translate-y-1/2 hidden lg:flex border border-slate-100">
+                        <ChevronLeft size={24} />
+                    </button>
+                    <button className="swiper-next absolute top-1/2 -right-6 md:-right-12 z-20 w-14 h-14 bg-white rounded-full shadow-2xl items-center justify-center text-slate-800 opacity-0 group-hover/slider:opacity-100 transition-all hover:bg-blue-600 hover:text-white -translate-y-1/2 rotate-180 hidden lg:flex border border-slate-100">
+                        <ChevronLeft size={24} />
+                    </button>
+
+                    <div className="custom-pagination flex justify-center gap-2 mt-8"></div>
+                </div>
             </div>
-        </div>
+
+            <style jsx global>{`
+                .custom-pagination .swiper-pagination-bullet {
+                    width: 8px;
+                    height: 8px;
+                    background: #cbd5e1;
+                    opacity: 1;
+                    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                    border-radius: 4px;
+                }
+                .custom-pagination .swiper-pagination-bullet-active {
+                    width: 30px;
+                    background: #2563eb;
+                }
+                .swiper-button-disabled {
+                    opacity: 0 !important;
+                }
+            `}</style>
+        </section>
     );
 };
 

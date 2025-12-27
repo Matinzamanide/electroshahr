@@ -147,10 +147,8 @@ const ProductCard: React.FC<IProduct> = ({
 
   return (
     <div className="group relative w-full max-w-[280px] mx-auto">
-      {/* Container اصلی با طراحی بدون لبه (Edge-to-Edge) */}
       <article className="relative bg-white rounded-4xl overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[0_4px_20px_rgba(0,0,0,0.03)] group-hover:shadow-[0_40px_80px_rgba(0,0,0,0.1)] group-hover:-translate-y-3">
         
-        {/* بخش تصویر با پس‌زمینه نود (Nude) */}
         <div className="relative h-72 w-full bg-[#F9FAFB] overflow-hidden">
           <Link href={`/product/${id}/${title}`} className="block h-full w-full p-8">
             <Image
@@ -167,7 +165,6 @@ const ProductCard: React.FC<IProduct> = ({
             />
           </Link>
 
-          {/* Badge تخفیف مینی‌مال */}
           {hasDiscount && (
             <div className="absolute top-5 right-5">
               <div className="bg-white/90 backdrop-blur-md border border-slate-100 text-slate-900 text-[10px] font-black px-3 py-1.5 rounded-full shadow-sm">
@@ -176,7 +173,6 @@ const ProductCard: React.FC<IProduct> = ({
             </div>
           )}
 
-          {/* دکمه افزودن سریع - طراحی مینیمال چسبیده به پایین تصویر */}
           <Link href={`/product/${id}/${title}`}>
           <button className="absolute bottom-0 inset-x-0 h-14 bg-slate-900 text-white translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-y-0 flex items-center justify-center gap-3 font-bold text-sm tracking-tight">
             <ShoppingCart  size={18} className="text-blue-400" />
@@ -185,7 +181,6 @@ const ProductCard: React.FC<IProduct> = ({
           </Link>
         </div>
 
-        {/* بخش محتوا با تمرکز بر تایپوگرافی */}
         <div className="p-6 text-right" dir="rtl">
           <div className="flex justify-between items-center mb-3">
              <span className="text-[9px] font-black text-blue-600 uppercase tracking-[0.2em] bg-blue-50 px-2 py-0.5 rounded">Premium</span>
@@ -214,7 +209,6 @@ const ProductCard: React.FC<IProduct> = ({
               </div>
             </div>
 
-            {/* آیکون لینک خروجی لوکس */}
             <div className="w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
               <ArrowUpRight size={20} />
             </div>
@@ -222,7 +216,6 @@ const ProductCard: React.FC<IProduct> = ({
         </div>
       </article>
 
-      {/* سایه تزئینی زیر کارت */}
       <div className="absolute -bottom-4 inset-x-10 h-10 bg-black/5 blur-3xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
     </div>
   );

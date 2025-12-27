@@ -136,10 +136,10 @@ interface Product {
   id: string;
   title: string;
   price: number;
-  before_discount_price: number; // فرض می‌کنیم این فیلد وجود دارد
-  inventory: number; // فرض می‌کنیم این فیلد وجود دارد
-  brand: string; // فرض می‌کنیم این فیلد وجود دارد
-  description: string; // فرض می‌کنیم این فیلد وجود دارد
+  before_discount_price: number; 
+  inventory: number; 
+  brand: string; 
+  description: string; 
   slug: string;
   url: string;
   images: string[];
@@ -154,7 +154,6 @@ export default function ProductClient({
 }: {
   params: Promise<{ id: string; slug: string }>;
 }) {
-  // 1. دریافت ID و Slug از Promise با استفاده از use()
   const { id, slug } = use(params);
 
   const [product, setProduct] = useState<Product | null>(null);
@@ -165,7 +164,6 @@ export default function ProductClient({
     "description" | "features" | "reviews"
   >("description");
 
-  // 2. Client-side Data Fetching
   useEffect(() => {
     setIsLoading(true);
     setError(null);
@@ -178,7 +176,6 @@ export default function ProductClient({
         return res.json();
       })
       .then((data) => {
-        // فرض می‌کنیم API یک آرایه برمی‌گرداند و ما عنصر اول را نیاز داریم
         const finalProduct: Product = Array.isArray(data) ? data[0] : data;
 
         if (!finalProduct) throw new Error("محصولی با این شناسه پیدا نشد.");
@@ -194,9 +191,7 @@ export default function ProductClient({
         setIsLoading(false);
       });
   }, [id, slug]);
-  const {cartItems}=useShoppingCartContext()
 
-  // ------------------- مدیریت وضعیت‌های Loading و Error -------------------
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-50">
@@ -220,9 +215,8 @@ export default function ProductClient({
     );
   }
 
-  if (!product) return null; // نباید به اینجا برسیم اگر خطا مدیریت شده باشد
+  if (!product) return null; 
 
-  // ------------------ محاسبات و محتوای تب‌ها ------------------
   const discountPercentage = product.before_discount_price
     ? Math.round(
         ((product.before_discount_price - product.price) /
@@ -254,10 +248,8 @@ export default function ProductClient({
     }
   ];
 
-  // ------------------ رندر UI/UX خفن ------------------
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* مسیر ناوبری (Breadcrumb) */}
       <div className="flex items-center text-sm text-gray-500 mb-6">
         <Link href="/" className="hover:text-blue-600">
           خانه
@@ -273,9 +265,7 @@ export default function ProductClient({
         <span className="text-gray-800 font-medium">{product.title}</span>
       </div>
 
-      {/* بخش اصلی محصول (گالری و اطلاعات اولیه) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-white shadow-xl rounded-2xl p-6 lg:p-10 border border-gray-100">
-        {/* ستون چپ: گالری تصاویر */}
         <div className="flex flex-col gap-6">
           <div className="relative w-full aspect-square bg-gray-50 rounded-xl overflow-hidden shadow-lg border border-gray-100">
             <Image
@@ -287,7 +277,6 @@ export default function ProductClient({
               priority
             />
           </div>
-          {/* تصاویر کوچک Thumbnail */}
           <div className="flex gap-3 overflow-x-auto pb-2">
             {product.images.map((img, index) => (
               <button
@@ -311,7 +300,6 @@ export default function ProductClient({
           </div>
         </div>
 
-        {/* ستون راست: اطلاعات محصول و اکشن‌ها */}
         <div className="flex flex-col gap-6">
           <h1 className="lg:text-4xl text-lg font-extrabold text-blue-900 leading-snug">
             {product.title}
@@ -337,7 +325,6 @@ export default function ProductClient({
             </div>
           </div>
 
-          {/* قیمت گذاری */}
           <div className="flex flex-col gap-2 bg-blue-50/50 rounded-xl p-5 border border-blue-100">
             <p className="text-base text-gray-500 line-through font-sans">
               {Number(product.before_discount_price).toLocaleString()} تومان
@@ -354,7 +341,6 @@ export default function ProductClient({
             </div>
           </div>
 
-          {/* موجودی و ویژگی‌های سریع */}
           <div className="flex items-center gap-4 text-base font-medium">
             <p
               className={`flex items-center gap-1 ${
@@ -373,7 +359,6 @@ export default function ProductClient({
             )}
           </div>
 
-          {/* دکمه‌های اکشن */}
           <div className="flex gap-4 mt-4">
            
           <AddCart isAvailable={isAvailable} id={Number(id)} />
@@ -382,9 +367,7 @@ export default function ProductClient({
         </div>
       </div>
 
-      {/* بخش پایین: تب‌های توضیحات و مشخصات */}
       <div className="mt-12 bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
-        {/* نوار تب‌ها */}
         <div className="flex border-b border-gray-200 mb-6">
           {tabs.map((tab) => (
             <button
@@ -404,13 +387,11 @@ export default function ProductClient({
           ))}
         </div>
 
-        {/* محتوای تب فعال */}
         <div className="py-4 leading-loose text-gray-700">
           {tabs.find((tab) => tab.id === activeTab)?.content}
         </div>
       </div>
 
-      {/* باکس Call-to-Action یا بنر اضافی */}
       <div className="mt-10 p-5 bg-orange-50 border-r-4 border-orange-600 rounded-xl flex items-center justify-between shadow-md">
         <div className="flex items-center gap-4">
           <Lightbulb size={32} className="text-orange-600 shrink-0" />

@@ -34,7 +34,6 @@ const HeroSection = () => {
     },
   });
 
-  // autoplay with pause on hover
   useEffect(() => {
     const slider = instanceRef.current;
     if (!slider) return;
@@ -83,7 +82,6 @@ const HeroSection = () => {
 
       </div>
 
-      {/* دات‌های پایین */}
       {loaded && (
         <div className="flex justify-center mt-4 gap-2">
           {slides.map((_, idx) => (

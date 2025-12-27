@@ -6,20 +6,19 @@ import { useState } from 'react';
 import { Award, ArrowLeft } from 'lucide-react';
 
 const data = [
-    { src: '/logo.png', brand: 'شاهچراغ',link:'/ProductBrands/موتوژن' },
-  { src: '/modi.png', brand: 'مودی',link:'/ProductBrands/الکتروژن' },
-  { src: '/veera.png', brand: 'ویرا الکتریک',link:'/ProductBrands/بهار پمپ' },
-  { src: '/iran.png', brand: 'ایران الکتریک',link:'/ProductBrands/رایان پمپ' },
-  { src: '/peyk.webp', brand: 'الکتروپیک',link:'/ProductBrands/HEDFIX' },
-  { src: '/taba.png', brand: 'تابا',link:'/ProductBrands/PENTAX' },
-  { src: '/suzuki.jpg', brand: 'سوزوکی',link:'/ProductBrands/ONYX' },
-  { src: '/welion.png', brand: 'welion',link:'/ProductBrands/آبارا' },
+    { src: '/logo.png', brand: 'شاهچراغ',link:'/product-brands/شاهچراغ' },
+  { src: '/modi.png', brand: 'مودی',link:'product-brands/مودی' },
+  { src: '/veera.png', brand: 'ویرا الکتریک',link:'product-brands/ویرا الکتریک' },
+  { src: '/iran.png', brand: 'ایران الکتریک',link:'ایران الکتریک' },
+  { src: '/peyk.webp', brand: 'الکتروپیک',link:'product-brands/الکتروپیک' },
+  { src: '/taba.png', brand: 'تابا',link:'product-brands/تابا' },
+  { src: '/suzuki.jpg', brand: 'سوزوکی',link:'product-brands/سوزوکی' },
+  { src: '/welion.png', brand: 'welion',link:'product-brands/welion' },
   { src: 'https://apika.ir/images/apika2.svg', brand: 'آپیکا',link:'https://apika.ir/' },
-//   { src: 'https://apika.ir/images/hachasou.png', brand: 'هاچاسو',link:'/ProductBrands/هاچاسو' },
 ];
 
 const Brands = () => {
-  const [loaded, setLoaded] = useState(false); // این state برای کاربرد خاصی در اینجا استفاده نشده، اما حفظ می‌شود.
+  const [loaded, setLoaded] = useState(false); 
 
   return (
     <section className="w-full py-16 bg-indigo-50">

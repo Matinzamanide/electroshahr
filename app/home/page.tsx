@@ -8,7 +8,6 @@ import NewestProduct from "@/components/NewestProduct";
 const Home = () => {
     return ( 
         <>
-        {/* <Navbar/> */}
         <HeroSection/>
         <InitialCategory/>
         <MainCategory/>

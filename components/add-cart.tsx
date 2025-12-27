@@ -34,7 +34,6 @@ const AddCart: React.FC<IAddCart> = ({ isAvailable, id }) => {
                 : "bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200"
             }`}
           >
-            {/* Effect Layer */}
             <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             
             {isAvailable ? (

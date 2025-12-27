@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ShoppingCart, Star, Heart, Check, X, Tag, Zap, ChevronLeft, Lightbulb } from 'lucide-react';
 
-// تعریف نوع داده برای محصول
 interface Product {
     id: string;
     title: string;
@@ -19,7 +18,6 @@ interface Product {
     features: string[];
 }
 
-// داده محصول دریافتی
 const productData: Product = {
     "id": "1",
     "title": "چراغ خواب سیلیکونی مدل اسب شاخدار",
@@ -30,7 +28,6 @@ const productData: Product = {
     "description": "چراغ خواب سیلیکونی اسب شاخدار یک هدیه فوق‌العاده و جذاب برای اتاق کودکان است. این چراغ با قابلیت تغییر رنگ، فضای دلنشین و آرامش‌بخشی ایجاد می‌کند. جنس بدنه از سیلیکون مرغوب و مقاوم در برابر ضربه ساخته شده و کاملاً ایمن است. با یک بار شارژ کامل، می‌توانید تا ۱۰ ساعت از نوردهی آن استفاده کنید.",
     "images": [
       "https://zamanigallerry.ir/uploads/products/672746.jpg?m=thumb&w=640&h=640&q=high",
-      // می‌توانید تصاویر بیشتری اضافه کنید
     ],
     "categories": [
       "گجت و دکوری"
@@ -44,7 +41,6 @@ const productData: Product = {
     ]
 };
 
-// کامپوننت اصلی صفحه محصول
 const ProductDetailPage: FC = () => {
     const [mainImage, setMainImage] = useState(productData.images[0]);
     const [activeTab, setActiveTab] = useState<'description' | 'features' | 'reviews'>('description');
@@ -168,7 +164,7 @@ const ProductDetailPage: FC = () => {
                         <button
                             className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-white font-extrabold transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg
                                 ${isAvailable 
-                                    ? 'bg-linear-to-r from-blue-700 to-blue-800 hover:from-orange-600 hover:to-orange-700 shadow-blue-500/50 hover:shadow-orange-500/50' 
+                                    ? 'bg-gradient-to-r from-blue-700 to-blue-800 hover:from-orange-600 hover:to-orange-700 shadow-blue-500/50 hover:shadow-orange-500/50' 
                                     : 'bg-gray-400 cursor-not-allowed shadow-none'
                                 }`}
                             disabled={!isAvailable}
@@ -214,7 +210,7 @@ const ProductDetailPage: FC = () => {
             {/* باکس Call-to-Action یا بنر اضافی */}
             <div className="mt-10 p-5 bg-orange-50 border-r-4 border-orange-600 rounded-xl flex items-center justify-between shadow-md">
                 <div className="flex items-center gap-4">
-                    <Lightbulb size={32} className="text-orange-600 shrink-0" />
+                    <Lightbulb size={32} className="text-orange-600 flex-shrink-0" />
                     <p className="text-lg font-medium text-gray-800">
                         سؤالات متداول در مورد این محصول؟ <span className="font-bold text-blue-900">با ما تماس بگیرید.</span>
                     </p>

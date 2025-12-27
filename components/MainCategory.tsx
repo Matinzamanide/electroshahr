@@ -2,17 +2,15 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Lightbulb, Zap, Factory, Cable, Box, RotateCw, Settings } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { Lightbulb, Zap, Cable, Box, RotateCw, Settings } from 'lucide-react';
 
-// تابع کمکی برای نگاشت آیکون‌ها
 const iconMapping = {
   'آویز و لوستر': Lightbulb,
-  'پروژکتور': Zap, // برای نور قوی
-  'اینورتر': RotateCw, // نماد تبدیل جریان
+  'پروژکتور': Zap, 
+  'اینورتر': RotateCw, 
   'سیم و کابل': Cable,
-  'ست کنترل': Settings, // نماد کنترل و تنظیمات
-  'تابلو برق': Box, // اگر بخواهید اضافه کنید
+  'ست کنترل': Settings, 
+  'تابلو برق': Box, 
 };
 
 // نگاشت رنگ‌ها به پالت برندینگ شما (آبی تیره و نارنجی)
@@ -60,7 +58,6 @@ const MainCategory = () => {
     // },
   ];
 
-  // ادغام داده‌ها برای داشتن رنگ و آیکون در یک شیء
   const combinedCategories = categories.map(cat => {
       const colorData = colorMapping.find(c => c.name === cat.title);
       return {
@@ -73,12 +70,10 @@ const MainCategory = () => {
 
   return (
     <section className="container mx-auto px-4 py-10 my-10 mb-20 md:py-16">
-        {/* عنوان بخش */}
         <h2 className="text-3xl md:text-4xl font-extrabold text-center text-blue-900 mb-10">
             <span className="border-b-4 border-orange-500 pb-1">دسته‌بندی‌های اصلی</span> برق
         </h2>
 
-        {/* Grid اصلی دسته‌بندی‌ها */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {combinedCategories.map((cat, index) => {
                 const IconComponent = cat.icon;
@@ -91,12 +86,10 @@ const MainCategory = () => {
                             bg-linear-to-br ${cat.color}` // استفاده از گرادیانت رنگی
                         }
                     >
-                        {/* آیکون بزرگ در پس‌زمینه (برای زیبایی) */}
                         <div className="absolute top-0 right-0 p-3 opacity-20 transition-transform duration-500 group-hover:rotate-12 group-hover:opacity-30">
                             {IconComponent && <IconComponent size={96} className={cat.iconColor} />}
                         </div>
 
-                        {/* تصویر محصول */}
                         <div className="w-24 h-24 md:w-32 md:h-32 mb-4 relative z-10">
                             <Image 
                                 src={cat.src} 
@@ -107,12 +100,10 @@ const MainCategory = () => {
                             />
                         </div>
 
-                        {/* عنوان دسته */}
                         <h3 className="text-lg md:text-xl font-extrabold text-center mt-auto z-10 transition-colors duration-300">
                             {cat.title}
                         </h3>
                         
-                        {/* نوار تاکید Hover */}
                         <div className="absolute bottom-0 left-0 w-full h-1 bg-white opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     </Link>
                 );

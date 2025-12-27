@@ -18,21 +18,18 @@ const Cart = () => {
     });
   }, []);
 
-  // ۱. محاسبه مجموع قیمت اصلی (بدون تخفیف)
   const totalBeforeDiscount = cartItems.reduce((total, item) => {
     const productData = data.find((p) => p.id == item.id);
     const price = Number(productData?.before_discount_price) || Number(productData?.price) || 0;
     return total + price * item.qty;
   }, 0);
 
-  // ۲. محاسبه مجموع قیمت نهایی (با اعمال تخفیف)
   const totalFinalPrice = cartItems.reduce((total, item) => {
     const productData = data.find((p) => p.id == item.id);
     const price = Number(productData?.price) || 0;
     return total + price * item.qty;
   }, 0);
 
-  // ۳. محاسبه میزان کل سود مشتری
   const totalProfit = totalBeforeDiscount - totalFinalPrice;
 
   if (cartItems.length === 0) {
@@ -60,7 +57,6 @@ const Cart = () => {
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        {/* لیست محصولات */}
         <div className="lg:col-span-2 space-y-4">
           {cartItems.map((item) => (
             <CartItem id={item.id} qty={item.qty} key={item.id} />
@@ -76,7 +72,6 @@ const Cart = () => {
             </h2>
 
             <div className="space-y-6">
-              {/* قیمت کالاها */}
               <div className="flex justify-between items-center text-gray-500">
                 <span className="text-sm">قیمت کل کالاها</span>
                 <span className="font-bold text-lg">
@@ -84,7 +79,6 @@ const Cart = () => {
                 </span>
               </div>
 
-              {/* سود مشتری (فقط اگر تخفیفی وجود داشت نمایش داده شود) */}
               {totalProfit > 0 && (
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
@@ -103,7 +97,6 @@ const Cart = () => {
 
               <div className="h-px bg-gray-100 my-6" />
 
-              {/* مبلغ نهایی */}
               <div className="flex justify-between items-center">
                 <span className="font-black text-gray-800 text-lg">مبلغ قابل پرداخت</span>
                 <div className="flex flex-col items-end">
@@ -114,11 +107,10 @@ const Cart = () => {
                 </div>
               </div>
 
-              {/* دکمه نهایی */}
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-5 rounded-2xl shadow-xl shadow-blue-200 transition-all flex items-center justify-center gap-3 mt-6"
+                className="w-full bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-5 rounded-2xl shadow-xl shadow-blue-200 transition-all flex items-center justify-center gap-3 mt-6"
               >
                 ادامه فرآیند خرید
                 <ArrowLeft size={20} />

@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, ChevronLeft, Zap, ShieldCheck } from 'lucide-react';
 
 interface FooterLinkItem {
