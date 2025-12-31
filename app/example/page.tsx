@@ -20,11 +20,11 @@ axios.post("https://apika.ir/electroshahr/deleteProduct.php", {
   return (
     <>
       <AddProduct />
-      <ProductDetailPage />
+      {/* <ProductDetailPage /> */}
 
-      <button className="bg-red-300 text-red-700 px-3 py-1 rounded mr-5" onClick={deleteHandler}>
+      {/* <button className="bg-red-300 text-red-700 px-3 py-1 rounded mr-5" onClick={deleteHandler}>
         حذف محصول
-      </button>
+      </button> */}
     </>
   );
 };

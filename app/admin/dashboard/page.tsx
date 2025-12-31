@@ -104,7 +104,6 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex" dir="rtl">
-      {/* Sidebar مدرن */}
       <aside className="w-80 bg-slate-900 m-4 rounded-[2.5rem] p-8 flex flex-col justify-between shadow-2xl">
         <div className="space-y-10">
           <div className="flex items-center gap-3 px-2">
@@ -136,9 +135,7 @@ export default function DashboardPage() {
         </button>
       </aside>
 
-      {/* محتوای اصلی */}
       <main className="flex-1 p-8 overflow-y-auto">
-        {/* Header */}
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 bg-white p-8 rounded-4xl shadow-sm border border-slate-100">
           <div>
             <h1 className="text-3xl font-black text-slate-900">لیست محصولات</h1>
@@ -146,12 +143,12 @@ export default function DashboardPage() {
               مدیریت موجودی و ویرایش کاتالوگ الکتروشهر
             </p>
           </div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-2xl font-black flex items-center gap-2 shadow-lg shadow-blue-600/20 transition-all">
+          <Link href={'/example'}
+           className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-2xl font-black flex items-center gap-2 shadow-lg shadow-blue-600/20 transition-all">
             <Plus size={20} /> افزودن محصول جدید
-          </button>
+          </Link>
         </header>
 
-        {/* بخش جستجو و اکشن‌ها */}
         <div className="flex flex-col md:flex-row gap-4 mb-6">
           <div className="relative flex-1">
             <Search
@@ -173,7 +170,6 @@ export default function DashboardPage() {
           </button>
         </div>
 
-        {/* جدول محصولات */}
         <div className="bg-white rounded-4xl shadow-sm border border-slate-100 overflow-hidden">
           {loading ? (
             <div className="p-20 flex flex-col items-center justify-center text-slate-400 gap-4">
