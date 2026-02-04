@@ -13,13 +13,16 @@ interface ICartItem {
 }
 
 const CartItem: React.FC<ICartItem> = ({ id, qty }) => {
-  const { handleIncreaseQty, handleDecreaseQty, handleRemoveProduct } = useShoppingCartContext();
+  const { handleIncreaseQty, handleDecreaseQty, handleRemoveProduct } =
+    useShoppingCartContext();
   const [data, setData] = useState<IProduct | null>(null);
 
   useEffect(() => {
-    axios(`https://apika.ir/electroshahr/getProducts.php?id=${id}`).then((res) => {
-      setData(res.data);
-    });
+    axios(`https://apitak.ir/electroshahr/getProducts.php?id=${id}`).then(
+      (res) => {
+        setData(res.data);
+      }
+    );
   }, [id]);
 
   if (!data) return null;
@@ -46,31 +49,36 @@ const CartItem: React.FC<ICartItem> = ({ id, qty }) => {
               {data?.title}
             </h3>
             {/* دکمه حذف در موبایل همیشه در دسترس باشد */}
-            <button 
+            <button
               onClick={() => handleRemoveProduct(id)}
               className="md:hidden text-slate-300 hover:text-red-500 transition-colors shrink-0"
             >
               <Trash2 size={18} />
             </button>
           </div>
-          
+
           <div className="flex items-center gap-1.5 text-slate-400">
             <Tag size={12} className="md:w-3.5 md:h-3.5" />
-            <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase">ID: {id}</span>
+            <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase">
+              ID: {id}
+            </span>
           </div>
         </div>
 
         {/* قیمت و کنترلر - در موبایل زیر هم یا کنار هم با مدیریت فضا */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mt-3 gap-3">
-          
           {/* بخش قیمت */}
           <div className="flex flex-col">
-            <span className="text-[9px] md:text-[10px] text-slate-400 font-black uppercase italic">Subtotal</span>
+            <span className="text-[9px] md:text-[10px] text-slate-400 font-black uppercase italic">
+              Subtotal
+            </span>
             <div className="flex items-center gap-1">
               <span className="text-lg md:text-2xl font-black text-blue-600 tracking-tighter font-sans">
                 {(Number(data?.price) * qty).toLocaleString()}
               </span>
-              <span className="text-[9px] md:text-[11px] font-bold text-slate-500">تومان</span>
+              <span className="text-[9px] md:text-[11px] font-bold text-slate-500">
+                تومان
+              </span>
             </div>
           </div>
 
@@ -88,7 +96,9 @@ const CartItem: React.FC<ICartItem> = ({ id, qty }) => {
             </span>
 
             <button
-              onClick={() => (qty > 1 ? handleDecreaseQty(id) : handleRemoveProduct(id))}
+              onClick={() =>
+                qty > 1 ? handleDecreaseQty(id) : handleRemoveProduct(id)
+              }
               className={`w-8 h-8 md:w-9 md:h-9 flex items-center justify-center rounded-xl transition-all active:scale-90 ${
                 qty === 1
                   ? "bg-red-50 text-red-500 hover:bg-red-500 hover:text-white shadow-sm shadow-red-100"
@@ -102,7 +112,7 @@ const CartItem: React.FC<ICartItem> = ({ id, qty }) => {
       </div>
 
       <div className="hidden md:block absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity">
-        <button 
+        <button
           onClick={() => handleRemoveProduct(id)}
           className="w-8 h-8 flex items-center justify-center text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-full transition-all"
         >

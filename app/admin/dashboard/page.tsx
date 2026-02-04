@@ -42,7 +42,7 @@ export default function DashboardPage() {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const res = await fetch("https://apika.ir/electroshahr/getProducts.php");
+      const res = await fetch("https://apitak.ir/electroshahr/getProducts.php");
       const data = await res.json();
       setProducts(data);
     } catch (error) {
@@ -62,12 +62,9 @@ export default function DashboardPage() {
       confirmButtonText: "آره حذفش کن",
     }).then((result) => {
       if (result.isConfirmed) {
-
-        axios.post("https://apika.ir/electroshahr/deleteProduct.php", {
-            id: id_num,
-          });
-
-
+        axios.post("https://apitak.ir/electroshahr/deleteProduct.php", {
+          id: id_num,
+        });
 
         Swal.fire({
           title: "حذف شد!",
@@ -76,8 +73,6 @@ export default function DashboardPage() {
         });
       }
     });
-
-   
   };
 
   const handleLogout = () => {
@@ -143,8 +138,10 @@ export default function DashboardPage() {
               مدیریت موجودی و ویرایش کاتالوگ الکتروشهر
             </p>
           </div>
-          <Link href={'/example'}
-           className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-2xl font-black flex items-center gap-2 shadow-lg shadow-blue-600/20 transition-all">
+          <Link
+            href={"/example"}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-2xl font-black flex items-center gap-2 shadow-lg shadow-blue-600/20 transition-all"
+          >
             <Plus size={20} /> افزودن محصول جدید
           </Link>
         </header>
@@ -241,7 +238,8 @@ export default function DashboardPage() {
                           >
                             <Trash2 size={18} />
                           </button>
-                          <Link href={product.url?? ""}
+                          <Link
+                            href={product.url ?? ""}
                             className="p-3 text-slate-400 hover:text-slate-900 rounded-xl transition-all"
                             title="نمایش در سایت"
                           >

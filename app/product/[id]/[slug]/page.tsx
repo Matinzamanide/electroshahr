@@ -136,10 +136,10 @@ interface Product {
   id: string;
   title: string;
   price: number;
-  before_discount_price: number; 
-  inventory: number; 
-  brand: string; 
-  description: string; 
+  before_discount_price: number;
+  inventory: number;
+  brand: string;
+  description: string;
   slug: string;
   url: string;
   images: string[];
@@ -147,7 +147,7 @@ interface Product {
   features: Record<string, any>[];
 }
 
-const API_BASE_URL = "https://apika.ir/electroshahr";
+const API_BASE_URL = "https://apitak.ir/electroshahr";
 
 export default function ProductClient({
   params,
@@ -215,7 +215,7 @@ export default function ProductClient({
     );
   }
 
-  if (!product) return null; 
+  if (!product) return null;
 
   const discountPercentage = product.before_discount_price
     ? Math.round(
@@ -245,7 +245,7 @@ export default function ProductClient({
           ))}
         </ul>
       ),
-    }
+    },
   ];
 
   return (
@@ -312,7 +312,6 @@ export default function ProductClient({
               <span className="text-gray-800">{product.brand}</span>
             </div>
 
-
             <div className="flex flex-wrap gap-2 mt-2 sm:mt-0">
               {product.categories?.map((cat: string, i: number) => (
                 <span
@@ -360,9 +359,7 @@ export default function ProductClient({
           </div>
 
           <div className="flex gap-4 mt-4">
-           
-          <AddCart isAvailable={isAvailable} id={Number(id)} />
-          
+            <AddCart isAvailable={isAvailable} id={Number(id)} />
           </div>
         </div>
       </div>

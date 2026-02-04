@@ -1,21 +1,20 @@
-"use client"
+"use client";
 import AddProduct from "@/components/AddProduct";
 import ProductDetailPage from "@/components/ProductDetailPage";
 import axios from "axios";
 
 const Example = () => {
   const deleteHandler = () => {
-
-axios.post("https://apika.ir/electroshahr/deleteProduct.php", {
-    id: 24
-})
-.then(res => {
-    console.log("Success:", res.data);
-})
-.catch(err => {
-    console.error("Error:", err.response ? err.response.data : err);
-});
-
+    axios
+      .post("https://apitak.ir/electroshahr/deleteProduct.php", {
+        id: 24,
+      })
+      .then((res) => {
+        console.log("Success:", res.data);
+      })
+      .catch((err) => {
+        console.error("Error:", err.response ? err.response.data : err);
+      });
   };
   return (
     <>
