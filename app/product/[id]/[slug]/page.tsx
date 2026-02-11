@@ -116,7 +116,7 @@
 
 "use client";
 
-import React, { useState, useEffect, use } from "react";
+import  { useState, useEffect, use } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -129,7 +129,6 @@ import {
   X,
   Lightbulb,
 } from "lucide-react";
-import { useShoppingCartContext } from "@/context/ShoppingCartContext";
 import AddCart from "@/components/add-cart";
 
 interface Product {

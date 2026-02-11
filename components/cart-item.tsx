@@ -1,11 +1,11 @@
 "use client";
-import { useShoppingCartContext } from "@/context/ShoppingCartContext";
 import Image from "next/image";
 import { Plus, Minus, Trash2, Tag } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { IProduct } from "@/types/types";
 import axios from "axios";
+import { useShoppingCartContext } from "@/context/ShoppingCartContext";
+import { IProduct } from "@/types/types";
 
 interface ICartItem {
   id: number;

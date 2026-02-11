@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { Lightbulb, Zap, Cable, Box, RotateCw, Settings } from 'lucide-react';
@@ -13,7 +11,6 @@ const iconMapping = {
   'تابلو برق': Box, 
 };
 
-// نگاشت رنگ‌ها به پالت برندینگ شما (آبی تیره و نارنجی)
 const colorMapping = [
     { name: 'آویز و لوستر', color: 'from-blue-600 to-cyan-500', iconColor: 'text-cyan-200' },
     { name: 'پروژکتور', color: 'from-orange-600 to-amber-500', iconColor: 'text-amber-200' }, // استفاده از نارنجی تاکیدی
@@ -62,11 +59,10 @@ const MainCategory = () => {
       const colorData = colorMapping.find(c => c.name === cat.title);
       return {
           ...cat,
-          color: colorData ? colorData.color : 'from-blue-500 to-blue-400', // رنگ پیش‌فرض
-          iconColor: colorData ? colorData.iconColor : 'text-blue-200' // رنگ پیش‌فرض
+          color: colorData ? colorData.color : 'from-blue-500 to-blue-400', 
+          iconColor: colorData ? colorData.iconColor : 'text-blue-200' 
       };
   });
-
 
   return (
     <section className="container mx-auto px-4 py-10 my-10 mb-20 md:py-16">
@@ -83,7 +79,7 @@ const MainCategory = () => {
                         key={index}
                         href={cat.href}
                         className={`group relative overflow-hidden flex flex-col items-center p-4 pt-8 md:p-6 rounded-2xl shadow-xl transition-all duration-300 ease-in-out transform hover:scale-[1.03] hover:shadow-2xl text-white min-h-[220px] 
-                            bg-linear-to-br ${cat.color}` // استفاده از گرادیانت رنگی
+                            bg-linear-to-br ${cat.color}`
                         }
                     >
                         <div className="absolute top-0 right-0 p-3 opacity-20 transition-transform duration-500 group-hover:rotate-12 group-hover:opacity-30">

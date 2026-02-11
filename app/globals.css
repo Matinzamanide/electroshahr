@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: vaziri;
-  src: url("../assets/fonts/vaziri/Vazir-Medium-FD-WOL.ttf");
+  src: url("../assets/vaziri/Vazir-Medium-FD-WOL.ttf");
 }
 *{
   font-family: vaziri,sans-serif;

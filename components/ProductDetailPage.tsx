@@ -1,6 +1,4 @@
-'use client';
-
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ShoppingCart, Star, Heart, Check, X, Tag, Zap, ChevronLeft, Lightbulb } from 'lucide-react';
@@ -164,7 +162,7 @@ const ProductDetailPage: FC = () => {
                         <button
                             className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-white font-extrabold transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg
                                 ${isAvailable 
-                                    ? 'bg-gradient-to-r from-blue-700 to-blue-800 hover:from-orange-600 hover:to-orange-700 shadow-blue-500/50 hover:shadow-orange-500/50' 
+                                    ? 'bg-linear-to-r from-blue-700 to-blue-800 hover:from-orange-600 hover:to-orange-700 shadow-blue-500/50 hover:shadow-orange-500/50' 
                                     : 'bg-gray-400 cursor-not-allowed shadow-none'
                                 }`}
                             disabled={!isAvailable}
@@ -210,7 +208,7 @@ const ProductDetailPage: FC = () => {
             {/* باکس Call-to-Action یا بنر اضافی */}
             <div className="mt-10 p-5 bg-orange-50 border-r-4 border-orange-600 rounded-xl flex items-center justify-between shadow-md">
                 <div className="flex items-center gap-4">
-                    <Lightbulb size={32} className="text-orange-600 flex-shrink-0" />
+                    <Lightbulb size={32} className="text-orange-600 shrink-0" />
                     <p className="text-lg font-medium text-gray-800">
                         سؤالات متداول در مورد این محصول؟ <span className="font-bold text-blue-900">با ما تماس بگیرید.</span>
                     </p>
