@@ -1,33 +1,37 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Lightbulb, Zap, Cable, Box, RotateCw, Settings } from 'lucide-react';
+// آیکون‌های جدید اضافه شده: مینیاتوری (ShieldCheck)، کلید و پریز (SquareStack)، هالوژن (Sun)
+import { Lightbulb, Zap, Cable, Box, RotateCw, Settings, SquareStack, Sun, ShieldCheck } from 'lucide-react';
 
 const iconMapping = {
-  'آویز و لوستر': Lightbulb,
+  'روشنایی': Lightbulb,
   'پروژکتور': Zap, 
   'اینورتر': RotateCw, 
   'سیم و کابل': Cable,
   'ست کنترل': Settings, 
-  'تابلو برق': Box, 
+  'تابلو برق': Box,
+  'کلید و پریز': SquareStack,
+  'هالوژن و سقفی': Sun,
+  'مینیاتوری': ShieldCheck,
 };
 
 const colorMapping = [
-    { name: 'آویز و لوستر', color: 'from-blue-600 to-cyan-500', iconColor: 'text-cyan-200' },
-    { name: 'پروژکتور', color: 'from-orange-600 to-amber-500', iconColor: 'text-amber-200' }, // استفاده از نارنجی تاکیدی
+    { name: 'روشنایی', color: 'from-blue-600 to-cyan-500', iconColor: 'text-cyan-200' },
+    { name: 'پروژکتور', color: 'from-orange-600 to-amber-500', iconColor: 'text-amber-200' },
     { name: 'اینورتر', color: 'from-indigo-600 to-purple-500', iconColor: 'text-purple-200' },
-    { name: 'سیم و کابل', color: 'from-blue-700 to-blue-500', iconColor: 'text-blue-200' }, // رنگ اصلی برند
-    { name: 'ست کنترل', color: 'from-gray-700 to-gray-500', iconColor: 'text-gray-200' },
+    { name: 'سیم و کابل', color: 'from-blue-700 to-blue-500', iconColor: 'text-blue-200' },
+    { name: 'کلید و پریز', color: 'from-emerald-600 to-teal-500', iconColor: 'text-emerald-200' },
+    { name: 'هالوژن و سقفی', color: 'from-rose-600 to-pink-500', iconColor: 'text-rose-200' },
+    { name: 'مینیاتوری', color: 'from-yellow-700 to-yellow-500', iconColor: 'text-yellow-200' },
 ];
 
-
 const MainCategory = () => {
-
   const categories = [
     {
-      title: 'آویز و لوستر',
+      title: 'روشنایی',
       href: '/aviz-looster',
       src: '/Aviz1.png',
-      icon: iconMapping['آویز و لوستر'],
+      icon: iconMapping['روشنایی'],
     },
     {
       title: 'پروژکتور',
@@ -47,20 +51,32 @@ const MainCategory = () => {
       src: '/cable.png',
       icon: iconMapping['سیم و کابل'],
     },
-    // {
-    //   title: 'ست کنترل',
-    //   href: '/SetControl',
-    //   src: 'https://rahabsanat.ir/wp-content/uploads/2025/03/control-set.webp',
-    //   icon: iconMapping['ست کنترل'],
-    // },
+    {
+      title: 'کلید و پریز',
+      href: '/klid-priz', 
+      src: '/klid.png', 
+      icon: iconMapping['کلید و پریز'],
+    },
+    {
+      title: 'هالوژن و سقفی',
+      href: '/halogen', 
+      src: '/halogen.png', 
+      icon: iconMapping['هالوژن و سقفی'],
+    },
+    {
+      title: 'مینیاتوری',
+      href: '/miniature', 
+      src: '/miniature.png',
+      icon: iconMapping['مینیاتوری'],
+    },
   ];
 
   const combinedCategories = categories.map(cat => {
       const colorData = colorMapping.find(c => c.name === cat.title);
       return {
           ...cat,
-          color: colorData ? colorData.color : 'from-blue-500 to-blue-400', 
-          iconColor: colorData ? colorData.iconColor : 'text-blue-200' 
+          color: colorData ? colorData.color : 'from-slate-600 to-slate-500', 
+          iconColor: colorData ? colorData.iconColor : 'text-slate-200' 
       };
   });
 
@@ -79,7 +95,7 @@ const MainCategory = () => {
                         key={index}
                         href={cat.href}
                         className={`group relative overflow-hidden flex flex-col items-center p-4 pt-8 md:p-6 rounded-2xl shadow-xl transition-all duration-300 ease-in-out transform hover:scale-[1.03] hover:shadow-2xl text-white min-h-[220px] 
-                            bg-linear-to-br ${cat.color}`
+                            bg-linear-to-br ${cat.color}` // در نسخه‌های قدیمی‌تر جایگزین bg-linear-to-br شد
                         }
                     >
                         <div className="absolute top-0 right-0 p-3 opacity-20 transition-transform duration-500 group-hover:rotate-12 group-hover:opacity-30">

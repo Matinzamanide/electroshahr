@@ -10,14 +10,14 @@ const VideoIntercom = async () => {
   console.log(data);
 
   const filteredProducts = data.filter((item) =>
-    item.categories.includes("روشنایی")
+    item.categories.includes("کلید و پریز")
   );
   console.log(filteredProducts);
   return (
     <div className="">
       <h2 className="text-3xl md:text-4xl font-extrabold text-center text-blue-900 my-10">
         <span className="border-b-4 border-orange-500 pb-1">
-          انواع تجهیزات روشنایی
+          انواع کلید و پریز
         </span>
       </h2>{" "}
       <div className="grid md:grid-cols-2 gap-7 lg:grid-cols-4 mt-20">

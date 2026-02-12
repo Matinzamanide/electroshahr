@@ -17,7 +17,6 @@ export default async function NewestProduct() {
   return (
     <section className="py-10">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Header */}
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl md:text-3xl font-extrabold text-gray-800">
             جدیدترین محصولات
@@ -30,12 +29,11 @@ export default async function NewestProduct() {
           </Link>
         </div>
 
-        {/* Products */}
         <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4">
           {products.map((product) => (
             <Link
               key={product.id}
-              href={`/ProductPage/${product.id}`}
+              href={`/product/${product.id}/${product.title}`}
               className="min-w-[220px] sm:min-w-[260px] snap-start group bg-white rounded-2xl  shadow-sm hover:shadow-lg transition-all duration-300"
             >
               <div className="relative w-full h-48 bg-gray-100 rounded-t-2xl overflow-hidden">
