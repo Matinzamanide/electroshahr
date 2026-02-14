@@ -37,7 +37,7 @@ const HeroSection = () => {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
             <StatItem
               icon={<Briefcase className="text-blue-600" />}
-              value="+12"
+              value="+20"
               label="سال سابقه کاری"
             />
             <StatItem

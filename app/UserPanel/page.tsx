@@ -63,7 +63,6 @@ const UserPanel = () => {
     fetchUserData();
   }, [isLoggedIn, phoneNumber, setName, setFamily]);
 
-  // Fix: API URL spacing bug
   useEffect(() => {
     if (!isLoggedIn || !phoneNumber) return;
     
