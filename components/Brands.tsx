@@ -25,7 +25,7 @@ const data = [
 const Brands = () => {
 
   return (
-    <section className="w-full py-16 bg-indigo-50">
+    <section className="w-full py-16 bg-linear-to-b from-gray-50 via-white to-gray-50">
       <div className="text-center mb-12 max-w-4xl mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-extrabold text-blue-900 mb-2 flex items-center justify-center gap-2">
           <Award size={30} className="text-orange-500" />

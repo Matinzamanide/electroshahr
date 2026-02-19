@@ -113,295 +113,162 @@
 //     </div>
 //   );
 // }
-
-"use client";
-
-import  { useState, useEffect, use } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import {
-  ShoppingCart,
-  Check,
-  Tag,
-  Zap,
-  ChevronLeft,
-  Loader2,
-  X,
-  Lightbulb,
-} from "lucide-react";
+import { Check, Tag, ChevronLeft, X, Lightbulb } from "lucide-react";
 import AddCart from "@/components/add-cart";
-
-interface Product {
-  id: string;
-  title: string;
-  price: number;
-  before_discount_price: number;
-  inventory: number;
-  brand: string;
-  description: string;
-  slug: string;
-  url: string;
-  images: string[];
-  categories: string[];
-  features: Record<string, any>[];
-}
+import ProductGallery from "@/components/ProductGallery";
+import ProductTabs from "@/components/ProductTabs";
+import { Metadata } from "next";
 
 const API_BASE_URL = "https://apitak.ir/electroshahr";
 
-export default function ProductClient({
-  params,
-}: {
-  params: Promise<{ id: string; slug: string }>;
-}) {
-  const { id, slug } = use(params);
+/* =========================
+   گرفتن اطلاعات محصول
+========================= */
+async function getProduct(id: string, slug: string) {
+  const encodedSlug = encodeURIComponent(slug);
 
-  const [product, setProduct] = useState<Product | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [mainImage, setMainImage] = useState<string>("");
-  const [activeTab, setActiveTab] = useState<
-    "description" | "features" | "reviews"
-  >("description");
+  const res = await fetch(
+    `${API_BASE_URL}/getProducts.php?id=${id}&url=${encodedSlug}`,
+    { cache: "no-store" } // مهم برای ترب
+  );
 
-  useEffect(() => {
-    setIsLoading(true);
-    setError(null);
+  if (!res.ok) return null;
 
-    const encodedSlug = encodeURIComponent(slug);
+  const data = await res.json();
+  return Array.isArray(data) ? data[0] : data;
+}
 
-    fetch(`${API_BASE_URL}/getProducts.php?id=${id}&url=${encodedSlug}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("خطای شبکه یا سرور");
-        return res.json();
-      })
-      .then((data) => {
-        const finalProduct: Product = Array.isArray(data) ? data[0] : data;
+/* =========================
+   متاتگ‌های ترب
+========================= */
+export async function generateMetadata(
+  { params }: { params: Promise<{ id: string; slug: string }> }
+): Promise<Metadata> {
 
-        if (!finalProduct) throw new Error("محصولی با این شناسه پیدا نشد.");
+  const { id, slug } = await params;
+  const product = await getProduct(id, slug);
 
-        setProduct(finalProduct);
-        setMainImage(finalProduct.images[0] || "");
-      })
-      .catch((err) => {
-        console.error(err);
-        setError(err.message || "خطا در بارگذاری اطلاعات محصول.");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [id, slug]);
+  if (!product) return {};
 
-  if (isLoading) {
+  const inventory = parseInt(product.inventory ?? "0", 10);
+  const isAvailable = inventory > 0;
+
+  return {
+    title: product.title,
+    description: product.description?.slice(0, 160) || "",
+    openGraph: {
+      title: product.title,
+      images: [product.images?.[0] || ""],
+    },
+    other: {
+      product_id: String(product.id),
+      product_name: product.title,
+      product_price: String(product.price ?? 0),
+      product_old_price: String(product.before_discount_price ?? ""),
+      availability: isAvailable ? "instock" : "outofstock",
+      "product:availability": isAvailable ? "instock" : "outofstock",
+    },
+  };
+}
+
+/* =========================
+   صفحه محصول
+========================= */
+export default async function ProductPage(
+  { params }: { params: Promise<{ id: string; slug: string }> }
+) {
+
+  const { id, slug } = await params;
+  const product = await getProduct(id, slug);
+
+  if (!product) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-50">
-        <Loader2 size={48} className="text-blue-600 animate-spin" />
-        <p className="mr-3 text-lg font-medium text-blue-700">
-          در حال بارگذاری اطلاعات محصول...
-        </p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] bg-red-50 p-6 rounded-xl border border-red-300 max-w-xl mx-auto my-10">
+      <div className="flex flex-col items-center justify-center min-h-[60vh] bg-red-50 p-6 mx-auto my-10 max-w-xl rounded-xl border border-red-300">
         <X size={32} className="text-red-600 mb-3" />
-        <h2 className="text-2xl font-bold text-red-800 mb-2">
-          خطا در بارگذاری
-        </h2>
-        <p className="text-gray-700 text-center">{error}</p>
+        <h2 className="text-2xl font-bold text-red-800 mb-2">محصول پیدا نشد</h2>
+        <Link href="/" className="mt-4 text-blue-600 underline">
+          بازگشت به فروشگاه
+        </Link>
       </div>
     );
   }
 
-  if (!product) return null;
+  const inventory = parseInt(product.inventory ?? "0", 10);
+  const isAvailable = inventory > 0;
 
   const discountPercentage = product.before_discount_price
     ? Math.round(
         ((product.before_discount_price - product.price) /
-          product.before_discount_price) *
-          100
+          product.before_discount_price) * 100
       )
     : 0;
-  const isAvailable = product.inventory > 0;
-
-  const tabs = [
-    {
-      id: "description",
-      name: "توضیحات کامل",
-      content: product.description || "توضیحاتی برای این محصول ثبت نشده است.",
-    },
-    {
-      id: "features",
-      name: "مشخصات فنی",
-      content: (
-        <ul className="list-none space-y-3">
-          {product.features.map((feature: any, index) => (
-            <li key={index} className="flex items-start gap-3 text-gray-700">
-              <Check size={20} className="text-blue-600 shrink-0 mt-1" />
-              {feature}
-            </li>
-          ))}
-        </ul>
-      ),
-    },
-  ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" dir="rtl">
+
+      {/* 🔥 متن مخفی SSR مخصوص ترب */}
+      <div style={{ display: "none" }}>
+        وضعیت موجودی: {isAvailable ? "موجود" : "ناموجود"}
+      </div>
+
+      {/* Breadcrumb */}
       <div className="flex items-center text-sm text-gray-500 mb-6">
-        <Link href="/" className="hover:text-blue-600">
-          خانه
-        </Link>
-        <ChevronLeft size={16} className="mx-2" />
-        <Link
-          href={`/products/${product.categories[0]}`}
-          className="hover:text-blue-600"
-        >
-          {product.categories[0]}
-        </Link>
+        <Link href="/" className="hover:text-blue-600">خانه</Link>
         <ChevronLeft size={16} className="mx-2" />
         <span className="text-gray-800 font-medium">{product.title}</span>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-white shadow-xl rounded-2xl p-6 lg:p-10 border border-gray-100">
-        <div className="flex flex-col gap-6">
-          <div className="relative w-full aspect-square bg-gray-50 rounded-xl overflow-hidden shadow-lg border border-gray-100">
-            <Image
-              src={mainImage}
-              alt={product.title}
-              layout="fill"
-              objectFit="contain"
-              className="transition-transform duration-500 hover:scale-105"
-              priority
-            />
-          </div>
-          <div className="flex gap-3 overflow-x-auto pb-2">
-            {product.images.map((img, index) => (
-              <button
-                key={index}
-                onClick={() => setMainImage(img)}
-                className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors duration-200 ${
-                  mainImage === img
-                    ? "border-orange-600 shadow-md"
-                    : "border-gray-200 hover:border-blue-300"
-                }`}
-              >
-                <Image
-                  src={img}
-                  alt={`تصویر ${index + 1}`}
-                  width={80}
-                  height={80}
-                  objectFit="cover"
-                />
-              </button>
-            ))}
-          </div>
-        </div>
+
+        <ProductGallery images={product.images} title={product.title} />
 
         <div className="flex flex-col gap-6">
-          <h1 className="lg:text-4xl text-lg font-extrabold text-blue-900 leading-snug">
+
+          <h1 className="lg:text-4xl text-lg font-extrabold text-blue-900">
             {product.title}
           </h1>
 
-          <div className="flex items-center text-sm text-gray-600 gap-4 border-b pb-4">
-            <div className="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-xl border border-gray-200">
-              <Tag size={18} className="text-gray-600" />
-              <span className="font-semibold text-gray-700">برند:</span>
-              <span className="text-gray-800">{product.brand}</span>
-            </div>
-
-            <div className="flex flex-wrap gap-2 mt-2 sm:mt-0">
-              {product.categories?.map((cat: string, i: number) => (
-                <span
-                  key={i}
-                  className="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full hover:bg-blue-200 transition-all duration-150"
-                >
-                  {cat}
-                </span>
-              ))}
-            </div>
-          </div>
-
+          {/* قیمت */}
           <div className="flex flex-col gap-2 bg-blue-50/50 rounded-xl p-5 border border-blue-100">
-            <p className="text-base text-gray-500 line-through font-sans">
-              {Number(product.before_discount_price).toLocaleString()} تومان
-            </p>
+            {product.before_discount_price > product.price && (
+              <p className="text-base text-gray-500 line-through">
+                {Number(product.before_discount_price).toLocaleString()} تومان
+              </p>
+            )}
             <div className="flex items-baseline gap-3">
-              <span className="text-lg lg:text-4xl font-extrabold text-orange-600 font-sans">
+              <span className="text-lg lg:text-4xl font-extrabold text-orange-600">
                 {Number(product.price).toLocaleString()} تومان
               </span>
               {discountPercentage > 0 && (
-                <span className="bg-orange-600 text-white text-lg font-bold px-3 py-1 rounded-lg">
+                <span className="bg-orange-600 text-white text-sm font-bold px-3 py-1 rounded-lg">
                   %{discountPercentage} تخفیف
                 </span>
               )}
             </div>
           </div>
 
-          <div className="flex items-center gap-4 text-base font-medium">
-            <p
-              className={`flex items-center gap-1 ${
-                isAvailable ? "text-green-600" : "text-red-600"
-              }`}
-            >
-              {isAvailable ? <Check size={20} /> : <X size={20} />}
-              {isAvailable
-                ? `موجود در انبار (${product.inventory} عدد)`
-                : "ناموجود"}
-            </p>
-            {product.features[0] && (
-              <p className="flex items-center gap-1 text-blue-700">
-                <Zap size={18} />
-              </p>
-            )}
-          </div>
-
-          <div className="flex gap-4 mt-4">
-            <AddCart isAvailable={isAvailable} id={Number(id)} />
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-12 bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
-        <div className="flex border-b border-gray-200 mb-6">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() =>
-                setActiveTab(tab.id as "description" | "features" | "reviews")
-              }
-              className={`px-6 py-3 text-lg font-bold transition-all duration-300 
-                                ${
-                                  activeTab === tab.id
-                                    ? "text-blue-800 border-b-4 border-orange-600"
-                                    : "text-gray-600 hover:text-blue-600"
-                                }`}
-            >
-              {tab.name}
-            </button>
-          ))}
-        </div>
-
-        <div className="py-4 leading-loose text-gray-700">
-          {tabs.find((tab) => tab.id === activeTab)?.content}
-        </div>
-      </div>
-
-      <div className="mt-10 p-5 bg-orange-50 border-r-4 border-orange-600 rounded-xl flex items-center justify-between shadow-md">
-        <div className="flex items-center gap-4">
-          <Lightbulb size={32} className="text-orange-600 shrink-0" />
-          <p className="lg:text-lg font-medium text-gray-800">
-            سؤالات متداول در مورد این محصول؟{" "}
-            <span className="font-bold text-blue-900">با ما تماس بگیرید.</span>
+          {/* وضعیت موجودی نمایشی */}
+          <p className={`flex items-center gap-1 font-medium ${
+            isAvailable ? "text-green-600" : "text-red-600"
+          }`}>
+            {isAvailable ? <Check size={20} /> : <X size={20} />}
+            {isAvailable
+              ? `موجود در انبار (${inventory} عدد)`
+              : "ناموجود"}
           </p>
+
+          <AddCart isAvailable={isAvailable} id={Number(id)} />
         </div>
-        <Link
-          href="/contact"
-          className="text-blue-700 font-bold hover:underline"
-        >
-          تماس با پشتیبانی →
-        </Link>
+      </div>
+
+      <ProductTabs
+        description={product.description}
+        features={product.features}
+      />
+
+      <div className="mt-10 p-5 bg-orange-50 border-r-4 border-orange-600 rounded-xl">
+        سؤالی دارید؟ با ما تماس بگیرید.
       </div>
     </div>
   );

@@ -114,15 +114,12 @@
 
 
 
-'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { ChevronLeft, ArrowUpRight } from 'lucide-react';
+import {  ArrowUpRight } from 'lucide-react';
 
 const InitialCategory = () => {
-  const [isVisible, setIsVisible] = useState(false);
 
   const data = [
     {
@@ -159,10 +156,6 @@ const InitialCategory = () => {
     },
   ];
 
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
   return (
     <section className="py-24 bg-[#fcfcfd] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
@@ -171,7 +164,7 @@ const InitialCategory = () => {
           <div className="space-y-4">
             <span className="text-blue-600 font-black tracking-[0.2em] uppercase text-xs">Explore Collections</span>
             <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
-              ویترین <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">دسته‌بندی‌ها</span>
+              ویترین <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-indigo-500">دسته‌بندی‌ها</span>
             </h2>
           </div>
           <p className="text-slate-500 font-medium max-w-sm leading-relaxed border-r-2 border-slate-200 pr-4">
@@ -185,16 +178,14 @@ const InitialCategory = () => {
             <Link
               key={index}
               href={item.link}
-              className={`group relative h-[420px] rounded-[2.5rem] overflow-hidden transition-all duration-700 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
+              className={`group relative h-[420px] rounded-[2.5rem] overflow-hidden transition-all duration-700 `}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
               {/* Background Layer */}
               <div className="absolute inset-0 bg-white border border-slate-100 group-hover:border-transparent transition-colors duration-500" />
               
               {/* Hover Gradient Overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+              <div className={`absolute inset-0 bg-linear-to-br ${item.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
               {/* Decorative Number */}
               <span className="absolute top-8 left-8 text-7xl font-black text-slate-50 group-hover:text-white/10 transition-colors duration-500">
@@ -235,7 +226,7 @@ const InitialCategory = () => {
               </div>
 
               {/* Shine Effect on Hover */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-tr from-white via-transparent to-transparent transition-opacity duration-700" />
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-linear-to-tr from-white via-transparent to-transparent transition-opacity duration-700" />
             </Link>
           ))}
         </div>

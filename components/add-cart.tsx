@@ -1,3 +1,4 @@
+"use client"
 import { useShoppingCartContext } from "@/context/ShoppingCartContext";
 import { ShoppingCart, Plus, Minus, BellRing, Trash2 } from "lucide-react";
 import { useState, useEffect } from "react";

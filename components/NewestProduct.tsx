@@ -1,17 +1,16 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { IProduct } from '@/types/types';
+import Link from "next/link";
+import Image from "next/image";
+import { IProduct } from "@/types/types";
+import { ShoppingCart } from "lucide-react";
 
 export default async function NewestProduct() {
-  const res = await fetch('https://apitak.ir/electroshahr/getProducts.php', {
+  const res = await fetch("https://apitak.ir/electroshahr/getProducts.php", {
     next: { revalidate: 60 },
   });
 
   const json = await res.json();
 
-  const products: IProduct[] = Array.isArray(json)
-    ? json.slice(0, 8)
-    : [];
+  const products: IProduct[] = Array.isArray(json) ? json.slice(0, 8) : [];
   if (products.length === 0) return null;
 
   return (
@@ -34,26 +33,33 @@ export default async function NewestProduct() {
             <Link
               key={product.id}
               href={`/product/${product.id}/${product.title}`}
-              className="min-w-[220px] sm:min-w-[260px] snap-start group bg-white rounded-2xl  shadow-sm hover:shadow-lg transition-all duration-300"
+              className="min-w-[290px] px-6 p-2 sm:min-w-[350px] snap-start group bg-white rounded-2xl  shadow-sm hover:shadow-lg transition-all duration-300"
             >
-              <div className="relative w-full h-48 bg-gray-100 rounded-t-2xl overflow-hidden">
+              <div className="">
                 <Image
-                  src={product.images?.[0]}
+                  width={200}
+                  height={200}
                   alt={product.title}
-                  fill
-                  sizes="(max-width: 768px) 220px, 260px"
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  src={product.images[0]}
+                  className="rounded-4xl text m-auto"
                 />
               </div>
-
-              <div className="p-4 space-y-2">
-                <h3 className="text-sm font-semibold text-gray-800 line-clamp-2">
+              <div className="pt-4">
+                <p className="text-sm line-clamp-1 font-bold">
                   {product.title}
-                </h3>
-
-                <span className="text-blue-600 font-bold text-sm">
-                  {product.price?.toLocaleString()} تومان
-                </span>
+                </p>
+                <div className="flex justify-between items-center mt-4 pb-3">
+                  <div className="">
+                    <p className="text-[12px] text-gray-600 line-through ">
+                      {Number(product.before_discount_price).toLocaleString()}
+                    </p>
+                    <p className="text-blue-600">
+                      {Number(product.price).toLocaleString()}{" "}
+                      <span className="text-orange-500">تومان</span>{" "}
+                    </p>
+                  </div>
+                  <div className="bg-blue-100 flex items-center text-blue-700 px-4 py-1 rounded-lg"> <span className="mx-2">خرید و مشاهده </span>  <ShoppingCart size={18} /> </div>
+                </div>
               </div>
             </Link>
           ))}
